@@ -1,0 +1,212 @@
+import java.util.*;
+
+class BankAccount {
+    private int accountNumber;
+    private String name;
+    private double balance;
+
+    public BankAccount(int accountNumber, String name, double balance) {
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.balance = balance;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Amount deposited successfully.");
+        } else {
+            System.out.println("Invalid amount.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid amount.");
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance.");
+        } else {
+            balance -= amount;
+            System.out.println("Amount withdrawn successfully.");
+        }
+    }
+
+    public void display() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Name: " + name);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+public class BankingTransactionSystem {
+
+    static Scanner sc = new Scanner(System.in);
+    static ArrayList<BankAccount> accounts = new ArrayList<>();
+
+    public static BankAccount findAccount(int accountNumber) {
+        for (BankAccount account : accounts) {
+            if (account.getAccountNumber() == accountNumber) {
+                return account;
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("\n===== BANKING TRANSACTION SYSTEM =====");
+            System.out.println("1. Create Account");
+            System.out.println("2. Deposit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Check Balance");
+            System.out.println("5. Transfer Money");
+            System.out.println("6. Display Account");
+            System.out.println("7. Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter Account Number: ");
+                    int accNo = sc.nextInt();
+
+                    if (findAccount(accNo) != null) {
+                        System.out.println("Account already exists.");
+                        break;
+                    }
+
+                    sc.nextLine();
+
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Enter Initial Balance: ");
+                    double balance = sc.nextDouble();
+
+                    if (balance < 0) {
+                        System.out.println("Invalid balance.");
+                    } else {
+                        accounts.add(
+                            new BankAccount(accNo, name, balance)
+                        );
+                        System.out.println("Account created successfully.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter Account Number: ");
+                    accNo = sc.nextInt();
+
+                    BankAccount depositAccount = findAccount(accNo);
+
+                    if (depositAccount == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        System.out.print("Enter amount to deposit: ");
+                        double amount = sc.nextDouble();
+                        depositAccount.deposit(amount);
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Enter Account Number: ");
+                    accNo = sc.nextInt();
+
+                    BankAccount withdrawAccount = findAccount(accNo);
+
+                    if (withdrawAccount == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        System.out.print("Enter amount to withdraw: ");
+                        double amount = sc.nextDouble();
+                        withdrawAccount.withdraw(amount);
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Enter Account Number: ");
+                    accNo = sc.nextInt();
+
+                    BankAccount balanceAccount = findAccount(accNo);
+
+                    if (balanceAccount == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        System.out.println(
+                            "Current Balance: ₹" +
+                            balanceAccount.getBalance()
+                        );
+                    }
+                    break;
+
+                case 5:
+                    System.out.print("Enter Sender Account Number: ");
+                    int senderNo = sc.nextInt();
+
+                    System.out.print("Enter Receiver Account Number: ");
+                    int receiverNo = sc.nextInt();
+
+                    BankAccount sender = findAccount(senderNo);
+                    BankAccount receiver = findAccount(receiverNo);
+
+                    if (sender == null || receiver == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        System.out.print("Enter amount to transfer: ");
+                        double amount = sc.nextDouble();
+
+                        if (amount <= 0) {
+                            System.out.println("Invalid amount.");
+                        } else if (amount > sender.getBalance()) {
+                            System.out.println("Insufficient balance.");
+                        } else {
+                            sender.withdraw(amount);
+                            receiver.deposit(amount);
+
+                            System.out.println(
+                                "Money transferred successfully."
+                            );
+                        }
+                    }
+                    break;
+
+                case 6:
+                    System.out.print("Enter Account Number: ");
+                    accNo = sc.nextInt();
+
+                    BankAccount account = findAccount(accNo);
+
+                    if (account == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        account.display();
+                    }
+                    break;
+
+                case 7:
+                    System.out.println("Thank you for using the Banking System.");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
+}
