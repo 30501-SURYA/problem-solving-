@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class AuthenticationTest {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String correctUser = "admin";
+        String correctPassword = "1234";
+
+        System.out.print("Enter number of login attempts: ");
+        int n = sc.nextInt();
+
+        int success = 0;
+        int failed = 0;
+
+        for (int i = 1; i <= n; i++) {
+
+            System.out.print("Enter username: ");
+            String user = sc.next();
+
+            System.out.print("Enter password: ");
+            String password = sc.next();
+
+            if (user.equals(correctUser) &&
+                password.equals(correctPassword)) {
+
+                System.out.println("Login Successful");
+                success++;
+
+            } else {
+                System.out.println("Login Failed");
+                failed++;
+            }
+        }
+
+        System.out.println("\nSuccessful Attempts: " + success);
+        System.out.println("Failed Attempts: " + failed);
+
+        sc.close();
+    }
+}
