@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class TrafficNavigation {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter traffic level (1-Low, 2-Medium, 3-High): ");
+        int traffic = sc.nextInt();
+
+        if (traffic == 1) {
+            System.out.println("Use the shortest route");
+        } 
+        else if (traffic == 2) {
+            System.out.println("Use an alternate route");
+        } 
+        else if (traffic == 3) {
+            System.out.println("Avoid this route and find another route");
+        } 
+        else {
+            System.out.println("Invalid traffic level");
+        }
+
+        sc.close();
+    }
+}
