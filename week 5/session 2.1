@@ -1,0 +1,59 @@
+import java.util.*;
+
+public class Solution {
+
+    public static List<Integer> maxSubarray(List<Integer> arr) {
+        int maxSubarray = arr.get(0);
+        int currentSum = arr.get(0);
+
+        int maxSubsequence = arr.get(0);
+        int positiveSum = 0;
+
+        for (int i = 1; i < arr.size(); i++) {
+
+            // Maximum subarray sum (Kadane's Algorithm)
+            currentSum = Math.max(arr.get(i), currentSum + arr.get(i));
+            maxSubarray = Math.max(maxSubarray, currentSum);
+
+            // Maximum subsequence sum
+            if (arr.get(i) > 0) {
+                positiveSum += arr.get(i);
+            }
+
+            maxSubsequence = Math.max(maxSubsequence, arr.get(i));
+        }
+
+        // If there are positive numbers, add them
+        if (positiveSum > 0) {
+            maxSubsequence = positiveSum;
+        }
+
+        List<Integer> result = new ArrayList<>();
+        result.add(maxSubarray);
+        result.add(maxSubsequence);
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int n = sc.nextInt();
+
+            List<Integer> arr = new ArrayList<>();
+
+            for (int i = 0; i < n; i++) {
+                arr.add(sc.nextInt());
+            }
+
+            List<Integer> result = maxSubarray(arr);
+
+            System.out.println(result.get(0) + " " + result.get(1));
+        }
+
+        sc.close();
+    }
+}
