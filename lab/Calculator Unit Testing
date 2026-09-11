@@ -1,0 +1,27 @@
+public class CalculatorTest {
+
+    static int add(int a, int b) {
+        return a + b;
+    }
+
+    static int subtract(int a, int b) {
+        return a - b;
+    }
+
+    public static void main(String[] args) {
+
+        int result1 = add(10, 5);
+
+        if (result1 == 15)
+            System.out.println("Addition Test Passed");
+        else
+            System.out.println("Addition Test Failed");
+
+        int result2 = subtract(10, 5);
+
+        if (result2 == 5)
+            System.out.println("Subtraction Test Passed");
+        else
+            System.out.println("Subtraction Test Failed");
+    }
+}
