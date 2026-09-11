@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class StreamAnalytics {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n;
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        System.out.print("Enter number of data values: ");
+        n = sc.nextInt();
+
+        System.out.println("Enter the data values:");
+
+        for (int i = 1; i <= n; i++) {
+
+            int value = sc.nextInt();
+
+            sum = sum + value;
+
+            if (value < min) {
+                min = value;
+            }
+
+            if (value > max) {
+                max = value;
+            }
+
+            double average = (double) sum / i;
+
+            System.out.println("After value " + i +
+                    " -> Sum: " + sum +
+                    ", Average: " + average +
+                    ", Min: " + min +
+                    ", Max: " + max);
+        }
+
+        sc.close();
+    }
+}
